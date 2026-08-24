@@ -12,7 +12,7 @@ API_ID = int(os.environ["API_ID"])
 API_HASH = os.environ["API_HASH"]
 SESSION_STRING = os.environ["SESSION_STRING"]
 
-CHANNEL_ID = os.environ["CHANNEL_ID"]
+CHANNEL_ID = int(os.environ["CHANNEL_ID"])
 
 REPLY_TEMPLATE = "Check out our catalogue at @bonfireglowdumps ˙⋆✮  specialize in jkt / food / travel / luxury pics ˙⋆✮ all pics 1x sell ˙⋆✮  all taken by ip 14 pro / 15 pro / 17 pro ˙⋆✮  hmu @bonfireglow as seller"
 
@@ -49,8 +49,11 @@ async def handle_wtb_post(client: Client, message: Message):
     delay = random.randint(65, 300)
     logging.info(f"Replying in {delay}s...")
     await asyncio.sleep(delay)
-    await message.reply(REPLY_TEMPLATE)
-    logging.info("Reply sent.")
+    try:
+        await message.reply(REPLY_TEMPLATE)
+        logging.info("Reply sent.")
+    except Exception as e:
+        logging.error(f"Failed to reply: {e}")
 
 
 if __name__ == "__main__":
