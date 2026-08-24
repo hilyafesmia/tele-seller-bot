@@ -37,7 +37,17 @@ app = Client("seller_bot", api_id=API_ID, api_hash=API_HASH, session_string=SESS
 
 @app.on_message()
 async def debug_all(client: Client, message: Message):
-    logging.info(f"[DEBUG] chat_id={message.chat.id} | signature='{message.author_signature}' | text='{(message.text or '')[:60]}'")
+    logging.info(f"[DEBUG-ALL] chat_id={message.chat.id} | signature='{message.author_signature}' | text='{(message.text or '')[:60]}'")
+
+
+@app.on_message(filters.channel)
+async def debug_channel(client: Client, message: Message):
+    logging.info(f"[DEBUG-CHANNEL] chat_id={message.chat.id} | signature='{message.author_signature}' | text='{(message.text or '')[:60]}'")
+
+
+@app.on_message(filters.group)
+async def debug_group(client: Client, message: Message):
+    logging.info(f"[DEBUG-GROUP] chat_id={message.chat.id} | text='{(message.text or '')[:60]}'")
 
 
 @app.on_message(filters.chat(CHANNEL_ID) & filters.text)
