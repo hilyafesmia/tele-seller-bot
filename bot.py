@@ -5,7 +5,7 @@ import os
 import logging
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
@@ -88,6 +88,16 @@ def start_health_server():
     HTTPServer(("", port), Handler).serve_forever()
 
 
+async def main():
+    await app.start()
+    logging.info("Syncing dialogs...")
+    async for _ in app.get_dialogs():
+        pass
+    logging.info("Dialogs synced — bot ready.")
+    await idle()
+    await app.stop()
+
+
 if __name__ == "__main__":
     threading.Thread(target=start_health_server, daemon=True).start()
-    app.run()
+    asyncio.run(main())
