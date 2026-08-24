@@ -12,7 +12,7 @@ API_ID = int(os.environ["API_ID"])
 API_HASH = os.environ["API_HASH"]
 SESSION_STRING = os.environ["SESSION_STRING"]
 
-CHANNEL_ID = -1001525948158
+CHANNEL_ID = os.environ["CHANNEL_ID"]
 
 REPLY_TEMPLATE = "Check out our catalogue at @bonfireglowdumps ˙⋆✮  specialize in jkt / food / travel / luxury pics ˙⋆✮ all pics 1x sell ˙⋆✮  all taken by ip 14 pro / 15 pro / 17 pro ˙⋆✮  hmu @bonfireglow as seller"
 
