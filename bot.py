@@ -3,6 +3,8 @@ import random
 import re
 import os
 import logging
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -61,5 +63,21 @@ async def handle_wtb_post(client: Client, message: Message):
         logging.error(f"Failed to reply: {e}")
 
 
+def start_health_server():
+    port = int(os.environ.get("PORT", 8080))
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"ok")
+
+        def log_message(self, *args):
+            pass
+
+    HTTPServer(("", port), Handler).serve_forever()
+
+
 if __name__ == "__main__":
+    threading.Thread(target=start_health_server, daemon=True).start()
     app.run()
