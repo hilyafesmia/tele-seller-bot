@@ -16,12 +16,6 @@ CHANNEL_ID = os.environ["CHANNEL_ID"]
 
 REPLY_TEMPLATE = "Check out our catalogue at @bonfireglowdumps ˙⋆✮  specialize in jkt / food / travel / luxury pics ˙⋆✮ all pics 1x sell ˙⋆✮  all taken by ip 14 pro / 15 pro / 17 pro ˙⋆✮  hmu @bonfireglow as seller"
 
-# Matches lux/luxury/fancy but NOT when preceded by no/non/jangan (with optional space)
-KEYWORD_PATTERN = re.compile(
-    r"(?<!\b(?:no|non|jangan)\s)\b(lux(?:ury)?|fancy)\b",
-    re.IGNORECASE,
-)
-
 
 def is_luxury_request(text: str) -> bool:
     if not text:
