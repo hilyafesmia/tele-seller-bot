@@ -33,6 +33,11 @@ def is_luxury_request(text: str) -> bool:
 app = Client("seller_bot", api_id=API_ID, api_hash=API_HASH, session_string=SESSION_STRING)
 
 
+@app.on_message()
+async def debug_all(client: Client, message: Message):
+    logging.info(f"[DEBUG] chat_id={message.chat.id} | signature='{message.author_signature}' | text='{(message.text or '')[:60]}'")
+
+
 @app.on_message(filters.chat(CHANNEL_ID) & filters.text)
 async def handle_wtb_post(client: Client, message: Message):
     signature = (message.author_signature or "").lower()
